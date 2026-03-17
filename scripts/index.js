@@ -108,7 +108,6 @@ const searchBar = document.querySelector('#pokemon-search-bar input');
 searchBar.addEventListener('input', function() {
     const error = document.getElementById('errorMessage');
     if (error) error.remove();
-
     clearPokemon();
     if (!this.value)
     {
@@ -123,12 +122,14 @@ searchBar.addEventListener('input', function() {
     }
     else {
         getPokemon(this.value.toLowerCase(), function() {
-            const container = document.getElementById('pokemon-card-container');
-            const text = document.createElement('h2');
-            text.style = 'text-align: center';
-            text.textContent = 'No pokemon found with that name or ID.';
-            text.id = 'errorMessage'
-            document.body.insertBefore(text, container);
+            if (!error) {
+                const container = document.getElementById('pokemon-card-container');
+                const text = document.createElement('h2');
+                text.style = 'text-align: center';
+                text.textContent = 'No pokemon found with that name or ID.';
+                text.id = 'errorMessage'
+                document.body.insertBefore(text, container);
+            }
         });
     }
 });
