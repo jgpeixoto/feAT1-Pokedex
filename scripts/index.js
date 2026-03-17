@@ -1,6 +1,8 @@
-import { capitalize } from './util';
+function capitalize(input) {
+    return input.charAt(0).toUpperCase() + input.slice(1);
+}
 
-export class Pokemon {
+class Pokemon {
     id;
     name;
     height;
@@ -39,3 +41,5 @@ export class Pokemon {
         this.image_shiny = rawPokemon.sprites.other['official-artwork'].front_shiny ?? rawPokemon.sprites.front_shiny;
     }
 }
+
+document.getElementById('pokemon').textContent = "TESTE JAVASCRIPT"; 

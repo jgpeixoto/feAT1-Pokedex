@@ -1,2 +1,0 @@
-import { Pokemon } from "./pokemon";
-
