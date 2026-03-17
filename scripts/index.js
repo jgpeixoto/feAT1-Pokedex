@@ -89,20 +89,16 @@ function createCard(pokemon)
 
 function getPokemon(idOrName) {
     fetch('https://pokeapi.co/api/v2/pokemon/'+idOrName)
-    .then(response => {
-        if (response.ok) {
-            response.json()
-        } 
-    })
+    .then(response => 
+        response.json()
+    )
     .then(json => {
-        if (json) {
-            const pokemon = new Pokemon(json);
-            createCard(pokemon);
-        } else console.log("Failed to obtain pokemon: " + idOrName)
+        const pokemon = new Pokemon(json);
+        createCard(pokemon);
     });
 }
 
-for (let i = 10025; i <= 10048; i++)
+for (let i = 1; i <= 18; i++)
 {
     getPokemon(i);
 }
