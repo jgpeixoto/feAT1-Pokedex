@@ -87,17 +87,51 @@ function createCard(pokemon)
     container.appendChild(card);
 }
 
-function getPokemon(idOrName) {
-    fetch('https://pokeapi.co/api/v2/pokemon/'+idOrName)
-    .then(response => 
-        response.json()
-    )
-    .then(json => {
-        const pokemon = new Pokemon(json);
-        createCard(pokemon);
-    });
+function clearPokemon() {
+    const container = document.getElementById('pokemon-card-container');
+    for (let i = container.children.length-1; i >= 0; i--)
+        container.children.item(i).remove();
 }
 
+async function getPokemon(idOrName, callbackOnFail=(() => {})) {
+    try {
+        let json = await (await fetch('https://pokeapi.co/api/v2/pokemon/'+idOrName)).json();
+        const pokemon = new Pokemon(json);
+        createCard(pokemon);
+    }
+    catch {
+        callbackOnFail();
+    }
+}
+
+const searchBar = document.querySelector('#pokemon-search-bar input');
+searchBar.addEventListener('input', function() {
+    const error = document.getElementById('errorMessage');
+    if (error) error.remove();
+
+    clearPokemon();
+    if (!this.value)
+    {
+        for (let i = 1; i <= 18; i++)
+        {
+            getPokemon(i);
+        }
+    }
+    else if (!isNaN(this.value) && Number(this.value) <= 1025)
+    {
+        getPokemon(Number(this.value));
+    }
+    else {
+        getPokemon(this.value.toLowerCase(), function() {
+            const container = document.getElementById('pokemon-card-container');
+            const text = document.createElement('h2');
+            text.style = 'text-align: center';
+            text.textContent = 'No pokemon found with that name or ID.';
+            text.id = 'errorMessage'
+            document.body.insertBefore(text, container);
+        });
+    }
+});
 for (let i = 1; i <= 18; i++)
 {
     getPokemon(i);
