@@ -1,0 +1,40 @@
+body {
+    background-color: #141418;
+    color: white;
+}
+
+header a {
+    color: inherit;
+    text-decoration: inherit;
+}
+.header-icon img {
+    height: 2rem;
+    margin-right: 0.3rem;
+    float: left;
+}
+.header-icon h2 {
+    display: flex;
+    margin: 0 1rem 0 0;
+    text-shadow: rgba(255, 0, 0, 0.85) 1px 1px;
+}
+.header-tabs td h3 {
+    margin: 0 1rem 0 1rem;
+}
+.header-tabs td {
+    border-radius: 2rem;
+}
+.header-tabs td:hover {
+    transition: 0.25s all;
+    color: yellow;
+    background: rgba(255, 255, 0, 0.1);
+}
+
+.flex {
+    display: flex;
+}
+
+.divisor-gradient {
+    background: linear-gradient(to right, yellow, red, red, blue, blue); 
+    height: 0.15rem; 
+    border: 0;
+}
