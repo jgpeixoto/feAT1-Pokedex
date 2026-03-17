@@ -38,3 +38,31 @@ header a {
     height: 0.15rem; 
     border: 0;
 }
+
+#pokemon-card-container {
+    background-color: #161620;
+    display: grid;
+    grid-template-columns: 15vw 15vw 15vw 15vw 15vw 15vw;
+    justify-content: center;
+}
+
+.pokemon-card {
+    border-radius: 1rem;
+    border-color: black;
+    border-width: 1rem;
+    margin: 0.75rem;
+    background-color: #303042;
+    text-align: center;
+}
+.pokemon-card img {
+    border-radius: 2rem;
+    margin: 0.5rem;
+    width: 10vw;
+    background-color: #404058;
+}
+.pokemon-card p::after {
+    clear: left;
+}
+.pokemon-card input {
+    margin-bottom: 1rem;
+}

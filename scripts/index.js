@@ -1,5 +1,8 @@
 function capitalize(input) {
-    return input.charAt(0).toUpperCase() + input.slice(1);
+    if (input)
+        return input.charAt(0).toUpperCase() + input.slice(1);
+    else 
+        return undefined;
 }
 
 class Pokemon {
@@ -24,11 +27,11 @@ class Pokemon {
         this.height = rawPokemon.height/10;
         this.weight = rawPokemon.weight/10;
         this.base_hp = rawPokemon.stats[0].base_stat;
-        this.base_att=rawPokemon.stats[1].base_stat;
-        this.base_def=rawPokemon.stats[2].base_stat;
-        this.base_satt=rawPokemon.stats[3].base_stat;
-        this.base_sdef=rawPokemon.stats[4].base_stat;
-        this.base_speed=rawPokemon.stats[5].base_stat;
+        this.base_att= rawPokemon.stats[1].base_stat;
+        this.base_def= rawPokemon.stats[2].base_stat;
+        this.base_satt= rawPokemon.stats[3].base_stat;
+        this.base_sdef= rawPokemon.stats[4].base_stat;
+        this.base_speed= rawPokemon.stats[5].base_stat;
         this.moveList = [];
         for (let i = 0; rawPokemon.moves[i]; i++) {
             this.moveList.push(capitalize(rawPokemon.moves[i].move.name));
@@ -42,4 +45,58 @@ class Pokemon {
     }
 }
 
-document.getElementById('pokemon').textContent = "TESTE JAVASCRIPT"; 
+function createCard(pokemon)
+{
+    const container = document.getElementById('pokemon-card-container');
+    const card = document.createElement('div');
+    card.pokemon = pokemon;
+    card.classList.add('pokemon-card');
+    
+    const image = document.createElement('img');
+    image.src = pokemon.image;
+    image.id = 'sprite' + pokemon.id;
+
+    const shinySwitch = document.createElement('input');
+    shinySwitch.type = 'checkbox';
+    shinySwitch.pokemonId = pokemon.id;
+    shinySwitch.id = 'shinySwitch' + pokemon.id;
+    shinySwitch.name = 'shinySwitch' + pokemon.id;
+    shinySwitch.value = 'Shiny';
+    shinySwitch.addEventListener('change', function() {
+        const pokemon = this.parentElement.pokemon;
+        const image = document.getElementById('sprite' + pokemon.id);
+        if (this.checked) {
+            image.src = pokemon.image_shiny;
+        } else {
+            image.src = pokemon.image;
+        }
+    });
+
+    const shinySwitchLabel = document.createElement('label');
+    shinySwitchLabel.for = 'shinySwitch' + pokemon.id;
+    shinySwitchLabel.textContent = 'Shiny';
+
+    const text = document.createElement('h3');
+    text.textContent = pokemon.id + " - " + pokemon.name;
+    
+    card.appendChild(image);
+    card.appendChild(text);
+    card.appendChild(shinySwitch);
+    card.appendChild(shinySwitchLabel);
+
+    container.appendChild(card);
+}
+
+function getPokemon(idOrName) {
+    fetch('https://pokeapi.co/api/v2/pokemon/'+idOrName)
+    .then(response => response.json())
+    .then(json => {
+        const pokemon = new Pokemon(json);
+        createCard(pokemon);
+    });
+}
+
+for (let i = 1; i <= 18; i++)
+{
+    getPokemon(i);
+}
