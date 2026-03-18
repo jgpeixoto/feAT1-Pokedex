@@ -71,18 +71,55 @@ function createCard(pokemon)
             image.src = pokemon.image;
         }
     });
+    
+    const flexbox = document.createElement('div');
+    flexbox.style.display = 'flex';
+    flexbox.style.justifyContent = 'center';
+    flexbox.style.verticalAlign = 'center';
 
     const shinySwitchLabel = document.createElement('label');
     shinySwitchLabel.for = 'shinySwitch' + pokemon.id;
     shinySwitchLabel.textContent = 'Shiny';
+
+    const favButton = document.createElement('div');
+    favButton.pokemonId = pokemon.id;
+    favButton.checked = false;
+    const fav = JSON.parse(localStorage.getItem('favorites'));
+    try {
+        if (fav[favButton.pokemonId]) {
+            favButton.checked = true;
+            favButton.style.backgroundImage = "url('./public/fav-button-filled.png')";
+        }
+    }
+    catch {}
+    favButton.addEventListener('click', function() {
+        if (!this.checked)
+        {
+            const favorites = JSON.parse(localStorage.getItem('favorites'));
+            favorites[this.pokemonId] = true;
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            this.checked = true;
+            this.style.backgroundImage = "url('./public/fav-button-filled.png')";
+        }
+        else {
+            const favorites = JSON.parse(localStorage.getItem('favorites'));
+            favorites[this.pokemonId] = false;
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            this.checked = false;
+            this.style.backgroundImage = "url('./public/fav-button.png')";
+        }
+    });
+    favButton.classList.add('fav-button');
 
     const text = document.createElement('h3');
     text.textContent = pokemon.id + " - " + pokemon.name;
     
     card.appendChild(image);
     card.appendChild(text);
-    card.appendChild(shinySwitch);
-    card.appendChild(shinySwitchLabel);
+    flexbox.appendChild(shinySwitch);
+    flexbox.appendChild(shinySwitchLabel);
+    flexbox.appendChild(favButton);
+    card.appendChild(flexbox);
 
     container.appendChild(card);
 }
@@ -155,6 +192,9 @@ function nextPage() {
 
 
 const searchBar = document.querySelector('#pokemon-search-bar input');
+if (!localStorage.getItem('favorites'))
+    localStorage.setItem('favorites', '{}');
+
 searchBar.addEventListener('input', function() {
     clearNotFound();
     clearPokemon();

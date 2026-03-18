@@ -29,10 +29,6 @@ header a {
     background: rgba(255, 255, 0, 0.1);
 }
 
-.flex {
-    display: flex;
-}
-
 .divisor-gradient {
     background: linear-gradient(to right, yellow, red, red, blue, blue); 
     height: 0.15rem; 
@@ -85,9 +81,20 @@ header a {
     width: 10vw;
     background-color: #404058;
 }
-.pokemon-card p::after {
-    clear: left;
-}
-.pokemon-card input {
+.pokemon-card div input {
     margin-bottom: 1rem;
+}
+.fav-button {
+    height: 1.75rem;
+    width: 1.75rem;
+    background-image: url('../public/fav-button.png');
+    background-size: contain;
+    margin-left: 2rem;
+}
+.fav-button:hover {
+    transition: ease-in 0.2s all;
+    height: 2.25rem;
+    width: 2.25rem;
+    margin-top: -0.4rem; 
+    margin-right: -0.35rem;
 }
