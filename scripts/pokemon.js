@@ -93,28 +93,50 @@ function clearPokemon() {
         container.children.item(i).remove();
 }
 
+function clearNotFound() {
+    const error = document.getElementsByClassName('errorMessage');
+    if (error) {
+        for (let i = 0; i < error.length; i++)
+        {
+            error[i].remove();
+        }
+    }
+}
+
 async function getPokemon(idOrName, callbackOnFail=(() => {})) {
     try {
-        let json = await (await fetch('https://pokeapi.co/api/v2/pokemon/'+idOrName)).json();
-        const pokemon = new Pokemon(json);
-        createCard(pokemon);
+        const cachedPoke = localStorage.getItem(idOrName);
+        if (!cachedPoke) {
+            let json = await (await fetch('https://pokeapi.co/api/v2/pokemon/'+idOrName)).json();
+            const pokemon = new Pokemon(json);
+            localStorage.setItem(pokemon.id, JSON.stringify(pokemon));
+            localStorage.setItem(json.name, JSON.stringify(pokemon));
+            createCard(pokemon);
+        }
+        else {
+            const pokemon = JSON.parse(cachedPoke);
+            createCard(pokemon);
+        }
     }
-    catch {
+    catch (e) {
         callbackOnFail();
+    }
+}
+
+function generateDefault() {
+    for (let i = 1; i <= 18; i++)
+    {
+        getPokemon(i);
     }
 }
 
 const searchBar = document.querySelector('#pokemon-search-bar input');
 searchBar.addEventListener('input', function() {
-    const error = document.getElementById('errorMessage');
-    if (error) error.remove();
+    clearNotFound();
     clearPokemon();
     if (!this.value)
     {
-        for (let i = 1; i <= 18; i++)
-        {
-            getPokemon(i);
-        }
+        generateDefault();
     }
     else if (!isNaN(this.value) && Number(this.value) <= 1025)
     {
@@ -122,18 +144,17 @@ searchBar.addEventListener('input', function() {
     }
     else {
         getPokemon(this.value.toLowerCase(), function() {
-            if (!error) {
-                const container = document.getElementById('pokemon-card-container');
+            const error = document.getElementById('errorMessage');
+            const container = document.getElementById('pokemon-card-container');
+            if (!error && container.children.length === 0) {
                 const text = document.createElement('h2');
                 text.style = 'text-align: center';
                 text.textContent = 'No pokemon found with that name or ID.';
-                text.id = 'errorMessage'
+                text.className = 'errorMessage';
+                text.id = 'errorMessage';
                 document.body.insertBefore(text, container);
             }
         });
     }
 });
-for (let i = 1; i <= 18; i++)
-{
-    getPokemon(i);
-}
+generateDefault();
