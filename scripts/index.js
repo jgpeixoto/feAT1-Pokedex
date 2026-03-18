@@ -1,7 +1,4 @@
 const searchBar = document.querySelector('#pokemon-search-bar input');
-if (!localStorage.getItem('favorites'))
-    localStorage.setItem('favorites', '{}');
-
 searchBar.addEventListener('input', function() {
     clearNotFound();
     clearPokemon();
@@ -30,3 +27,5 @@ searchBar.addEventListener('input', function() {
 });
 
 generateCards();
+const fav = localStorage.getItem('favorites');
+    console.log(fav);

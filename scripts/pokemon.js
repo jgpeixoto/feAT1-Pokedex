@@ -185,7 +185,11 @@ function prevPage() {
     if (curPage > 1)
         updatePage(curPage-1);
 }
+
 function nextPage() {
     const curPage = getCurPage();
     updatePage(curPage+1);
 }
+
+if (!localStorage.getItem('favorites'))
+    localStorage.setItem('favorites', '{}');
