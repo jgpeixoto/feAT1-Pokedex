@@ -149,10 +149,12 @@ async function getPokemon(idOrName, callbackOnFail=(() => {})) {
             localStorage.setItem(pokemon.id, JSON.stringify(pokemon));
             localStorage.setItem(json.name, JSON.stringify(pokemon));
             createCard(pokemon);
+            clearNotFound();
         }
         else {
             const pokemon = JSON.parse(cachedPoke);
             createCard(pokemon);
+            clearNotFound();
         }
     }
     catch (e) {
