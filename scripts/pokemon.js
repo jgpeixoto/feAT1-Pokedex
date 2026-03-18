@@ -123,15 +123,36 @@ async function getPokemon(idOrName, callbackOnFail=(() => {})) {
     }
 }
 
-let curPage = 1;
-function generateDefault() {
+function generateCards() {
+    const curPage = getCurPage();
     for (let i = 1 + 12*(curPage-1); i <= (12*curPage); i++)
         getPokemon(i);
-    if (curPage > 1) {
-        const prev = document.getElementById('prev-page');
-        
-    }
 }
+
+function getCurPage() {
+    return Number(document.getElementById('page-count').textContent);
+}
+
+function updatePage(page) {
+    const prev = document.getElementById('prev-page');
+    if (page > 1) prev.style.display = "block";
+    else prev.style.display = "none";
+    document.querySelector('#pokemon-search-bar input').value = '';
+    document.getElementById('page-count').textContent = page;
+    clearPokemon();
+    generateCards();
+}
+
+function prevPage() {
+    const curPage = getCurPage();
+    if (curPage > 1)
+        updatePage(curPage-1);
+}
+function nextPage() {
+    const curPage = getCurPage();
+    updatePage(curPage+1);
+}
+
 
 const searchBar = document.querySelector('#pokemon-search-bar input');
 searchBar.addEventListener('input', function() {
@@ -139,7 +160,7 @@ searchBar.addEventListener('input', function() {
     clearPokemon();
     if (!this.value)
     {
-        generateDefault();
+        generateCards();
     }
     else if (!isNaN(this.value) && Number(this.value) <= 1025)
     {
@@ -160,4 +181,6 @@ searchBar.addEventListener('input', function() {
         });
     }
 });
-generateDefault();
+
+
+generateCards();
