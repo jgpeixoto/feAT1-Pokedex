@@ -103,7 +103,7 @@ function createCard(pokemon)
         }
         else {
             const favorites = JSON.parse(localStorage.getItem('favorites'));
-            favorites[this.pokemonId] = false;
+            favorites[this.pokemonId] = undefined;
             localStorage.setItem('favorites', JSON.stringify(favorites));
             this.checked = false;
             this.style.backgroundImage = "url('./public/fav-button.png')";
