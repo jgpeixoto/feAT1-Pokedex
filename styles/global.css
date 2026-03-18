@@ -61,6 +61,15 @@ header a {
     border-radius: 0.5rem;
     padding: 0.2rem;
 }
+#pokemon-search-bar button {
+    margin-left: 0.75rem;
+}
+#pokemon-search-bar h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 0.75rem;
+    padding-top: 0.25rem;
+}
 
 .pokemon-card {
     border-radius: 1rem;

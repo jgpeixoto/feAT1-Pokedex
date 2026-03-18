@@ -123,10 +123,13 @@ async function getPokemon(idOrName, callbackOnFail=(() => {})) {
     }
 }
 
+let curPage = 1;
 function generateDefault() {
-    for (let i = 1; i <= 18; i++)
-    {
+    for (let i = 1 + 12*(curPage-1); i <= (12*curPage); i++)
         getPokemon(i);
+    if (curPage > 1) {
+        const prev = document.getElementById('prev-page');
+        
     }
 }
 
