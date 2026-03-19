@@ -181,8 +181,8 @@ async function getPokemon(idOrName, callbackOnFail=(() => {})) {
         let num = Number(idOrName);
         
         if (!isNaN(num) && !isValidId(num)) {
-            callbackOnFail();
             card.remove();
+            callbackOnFail();
             return;
         }
         const cachedPoke = localStorage.getItem(idOrName);
@@ -205,8 +205,8 @@ async function getPokemon(idOrName, callbackOnFail=(() => {})) {
             card.remove();
     }
     catch {
-        callbackOnFail();
         card.remove();
+        callbackOnFail();
     }
 }
 
