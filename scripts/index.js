@@ -5,7 +5,7 @@ function generateCards() {
         if (i <= PARAMS.LAST_POKE)
             getPokemon(i);
         else
-            getPokemon(i+(PARAMS.FIRST_VARIANT-PARAMS.LAST_POKE));
+            getPokemon(i+(PARAMS.FIRST_VARIANT-PARAMS.LAST_POKE-1));
     }
 }
 
