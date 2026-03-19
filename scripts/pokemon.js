@@ -162,36 +162,5 @@ async function getPokemon(idOrName, callbackOnFail=(() => {})) {
     }
 }
 
-function generateCards() {
-    const curPage = getCurPage();
-    for (let i = 1 + 12*(curPage-1); i <= (12*curPage); i++)
-        getPokemon(i);
-}
-
-function getCurPage() {
-    return Number(document.getElementById('page-count').textContent);
-}
-
-function updatePage(page) {
-    const prev = document.getElementById('prev-page');
-    if (page > 1) prev.style.display = "block";
-    else prev.style.display = "none";
-    document.querySelector('#pokemon-search-bar input').value = '';
-    document.getElementById('page-count').textContent = page;
-    clearPokemon();
-    generateCards();
-}
-
-function prevPage() {
-    const curPage = getCurPage();
-    if (curPage > 1)
-        updatePage(curPage-1);
-}
-
-function nextPage() {
-    const curPage = getCurPage();
-    updatePage(curPage+1);
-}
-
 if (!localStorage.getItem('favorites'))
     localStorage.setItem('favorites', '{}');
