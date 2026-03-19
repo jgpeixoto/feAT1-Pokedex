@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="public/favicon.png" />
     <link rel="stylesheet" href="./styles/global.css" />
+    <link rel="stylesheet" href="./styles/form.css" />
     <title>Pokedex</title>
 </head>
 <body>
@@ -35,11 +36,33 @@
         <hr class="divisor-gradient">
     </header>
 
+    <h2 style="text-align: center;">Got a problem or suggestion? Submit a ticket below!</h2>
+    <form action="" onsubmit="submitForm()">
+        <section id="form">
+            <div>
+                <label>
+                    <span>Your name: </span>
+                    <input type="text" placeholder="e.g.: John Doe" id="form-name" required>
+                </label>
+            </div>
+            <div>
+                <label>
+                    <span>E-mail: </span>
+                    <input type="email" placeholder="e.g.: johndoe@gmail.com" id="form-email" required>
+                </label>
+            </div>
+        </section>
+        <div id="message">
+            <span><label style="display:block" for="message">Message/<br>feedback:</label></span>
+            <textarea name="message" rows="5" cols="100" type="text" placeholder="e.g.: The page takes too long to load! :(" id="form-message" required></textarea>
+        </div>
+        <button type="submit" id="submit-button">Submit</button>
+    </form>
+
     <footer>
         <hr class="divisor-gradient">
         <h4 style="text-align: center;">© 2026 Pokedex</h4>
     </footer>
-
     <script src="./scripts/form.js"></script>
 </body>
 </html>
