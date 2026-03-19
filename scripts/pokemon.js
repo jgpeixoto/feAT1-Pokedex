@@ -12,9 +12,18 @@ const PARAMS = {
     },
 }
 
-function capitalize(input) {
-    if (input)
+function capitalize(input, split=false) {
+    if (input) {
+        if (split) {
+            const splits = input.split('-');
+            for (let i = 0; i < splits.length; i++)
+            {
+                splits[i] = capitalize(splits[i]);
+            }
+            return splits.join(' ');
+        }
         return input.charAt(0).toUpperCase() + input.slice(1);
+    }
     else 
         return undefined;
 }
@@ -37,7 +46,7 @@ class Pokemon {
 
     constructor(rawPokemon) {
         this.id = rawPokemon.id;
-        this.name = capitalize(rawPokemon.name);
+        this.name = capitalize(rawPokemon.name, true);
         this.height = rawPokemon.height/10;
         this.weight = rawPokemon.weight/10;
         this.base_hp = rawPokemon.stats[0].base_stat;
@@ -46,13 +55,13 @@ class Pokemon {
         this.base_satt= rawPokemon.stats[3].base_stat;
         this.base_sdef= rawPokemon.stats[4].base_stat;
         this.base_speed= rawPokemon.stats[5].base_stat;
-        this.moveList = [];
+        this.moveList = "";
         for (let i = 0; rawPokemon.moves[i]; i++) {
-            this.moveList.push(capitalize(rawPokemon.moves[i].move.name));
+            this.moveList += capitalize(rawPokemon.moves[i].move.name, true) + (rawPokemon.moves[i+1]?", ":"");
         }
-        this.typeList = [];
+        this.typeList = "";
         for (let i = 0; rawPokemon.types[i]; i++) {
-            this.typeList.push(capitalize(rawPokemon.types[i].type.name));
+            this.typeList += capitalize(rawPokemon.types[i].type.name) + (rawPokemon.types[i+1]?", ":"");
         }
         this.image = rawPokemon.sprites.other['official-artwork'].front_default ?? rawPokemon.sprites.front_default;
         if (this.image == null) this.image = './public/missing-entry.png';
@@ -87,15 +96,16 @@ function createCard(pokemon)
             image.src = pokemon.image;
         }
     });
+
+    
+    const shinySwitchLabel = document.createElement('label');
+    shinySwitchLabel.for = 'shinySwitch' + pokemon.id;
+    shinySwitchLabel.textContent = 'Shiny';
     
     const flexbox = document.createElement('div');
     flexbox.style.display = 'flex';
     flexbox.style.justifyContent = 'center';
     flexbox.style.verticalAlign = 'center';
-
-    const shinySwitchLabel = document.createElement('label');
-    shinySwitchLabel.for = 'shinySwitch' + pokemon.id;
-    shinySwitchLabel.textContent = 'Shiny';
 
     const favButton = document.createElement('div');
     favButton.pokemonId = pokemon.id;
@@ -189,5 +199,3 @@ async function getPokemon(idOrName, callbackOnFail=(() => {})) {
 
 if (!localStorage.getItem('favorites'))
     localStorage.setItem('favorites', '{}');
-
-console.log(PARAMS.PAGE_COUNT());

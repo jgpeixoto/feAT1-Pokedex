@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="public/favicon.png" />
     <link rel="stylesheet" href="./styles/global.css" />
+    <link rel="stylesheet" href="./styles/about.css" />
     <title>Pokedex</title>
 </head>
 <body>
@@ -35,12 +36,29 @@
         <hr class="divisor-gradient">
     </header>
 
-
+    <section id="pokemon-details-container">
+        <img id="pokemon-sprite" src="./public/missing-entry.png">
+        <h1 id="pokemon-name"></h1>
+        <div id="info-grid">
+            <p>ID: <span id="pokemon-id"></span><br>Type(s): <span id="pokemon-types"></span></p>
+            <p>Height: <span id="pokemon-height"></span><br>Weight: <span id="pokemon-weight"></span></p>
+            <p>HP: <span id="pokemon-hp"></span><br>Attack: <span id="pokemon-att"></span><br>Defense: <span id="pokemon-def"></span><br></p>
+            <p>Speed: <span id="pokemon-speed"></span><br>Sp. Attack: <span id="pokemon-sp-att"></span><br>Sp. Defense: <span id="pokemon-sp-def"></span><br></p>
+        </div>
+        <br>
+        <p id="pokemon-movelist">Move(s): <span id="pokemon-moves"></span></p>
+        <div style="display: flex; align-content: left; gap: 2rem;">
+            <label><h3 style="margin:0">Shiny<input type="checkbox" id="shinySwitch" name="shinySwitch" value="Shiny"></h3></label>
+            <div class="fav-button" id="favorite-button"></div>
+        </div>
+    </section>
+    <br style="clear:both">
     <footer>
         <hr class="divisor-gradient">
         <h4 style="text-align: center;">© 2026 Pokedex</h4>
     </footer>
 
+    <script src="./scripts/pokemon.js"></script>
     <script src="./scripts/about.js"></script>
 </body>
 </html>

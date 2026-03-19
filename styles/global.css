@@ -61,6 +61,7 @@ header a {
 .pokemon-card img {
     border-radius: 2rem;
     margin: 0.5rem;
+    margin-top: 1.25rem;
     width: 10vw;
     background-color: #404058;
 }
