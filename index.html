@@ -38,13 +38,14 @@
 
     <div id="pokemon-search-bar">
         <img id="search-icon" src="public/search.png">
-        <input placeholder="Pokemon name or ID..."></input>
+        <input id="pokemon-search-textbar" placeholder="Pokemon name or ID..."></input>
         <button onclick="prevPage()" type="button" id="prev-page">Previous Page</button>
         <h2 id="page-count">1</h2>
         <button onclick="nextPage()" type="button" id="next-page">Next Page</button>
     </div>
     <br style="clear:both">
     <section id="pokemon-card-container">
+        <img src="./public/throbber.png" id="first-load">
     </section>
 
     <footer>

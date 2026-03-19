@@ -82,3 +82,10 @@ header a {
     margin-top: -0.4rem; 
     margin-right: -0.35rem;
 }
+.card-loading {
+    height: 12rem;
+    background-image: url('../public/throbber.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 65%;
+}

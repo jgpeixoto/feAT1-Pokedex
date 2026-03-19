@@ -24,7 +24,7 @@ function updatePage(page) {
         next.style.display = "block";
     else 
         next.style.display = "none";
-    document.querySelector('#pokemon-search-bar input').value = '';
+    document.getElementById('pokemon-search-textbar').value = '';
     document.getElementById('page-count').textContent = page;
     clearPokemon();
     generateCards();
@@ -42,7 +42,7 @@ function nextPage() {
 }
 
 
-const searchBar = document.querySelector('#pokemon-search-bar input');
+const searchBar = document.getElementById('pokemon-search-textbar');
 searchBar.addEventListener('input', function() {
     clearNotFound();
     clearPokemon();
@@ -74,3 +74,4 @@ let page = new URLSearchParams(document.location.search).get('page') ?? 1;
 if (page < 1) page = 1;
 else if (page > PARAMS.PAGE_COUNT()) page = PARAMS.PAGE_COUNT();
 updatePage(page);
+document.getElementById('first-load').remove();

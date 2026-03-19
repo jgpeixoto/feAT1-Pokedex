@@ -70,11 +70,12 @@ class Pokemon {
     }
 }
 
-function createCard(pokemon)
+function createCard(pokemon, cardId)
 {
     const container = document.getElementById('pokemon-card-container');
-    const card = document.createElement('div');
+    const card = document.getElementById(cardId);
     card.pokemon = pokemon;
+    card.classList.remove('card-loading');
     card.classList.add('pokemon-card');
     
     const image = document.createElement('img');
@@ -153,7 +154,8 @@ function createCard(pokemon)
 function clearPokemon() {
     const container = document.getElementById('pokemon-card-container');
     for (let i = container.children.length-1; i >= 0; i--)
-        container.children.item(i).remove();
+        if (container.children.item(i).id !== 'first-load')
+            container.children.item(i).remove();
 }
 
 function clearNotFound() {
@@ -171,29 +173,40 @@ function isValidId(num) {
 }
 
 async function getPokemon(idOrName, callbackOnFail=(() => {})) {
+    const card = document.createElement('div');
+    card.id = 'card-' + idOrName;
+    card.classList.add('card-loading');
+    document.getElementById('pokemon-card-container').appendChild(card);
     try {
         let num = Number(idOrName);
+        
         if (!isNaN(num) && !isValidId(num)) {
             callbackOnFail();
+            card.remove();
             return;
         }
         const cachedPoke = localStorage.getItem(idOrName);
+        let pokemon;
         if (!cachedPoke) {
             let json = await (await fetch('https://pokeapi.co/api/v2/pokemon/'+idOrName)).json();
-            const pokemon = new Pokemon(json);
+            pokemon = new Pokemon(json);
             localStorage.setItem(pokemon.id, JSON.stringify(pokemon));
             localStorage.setItem(json.name, JSON.stringify(pokemon));
-            createCard(pokemon);
-            clearNotFound();
         }
         else {
-            const pokemon = JSON.parse(cachedPoke);
-            createCard(pokemon);
+            pokemon = JSON.parse(cachedPoke);    
+        }
+        let searchBar = document.getElementById('pokemon-search-textbar');
+        if (!searchBar || (searchBar.value ? searchBar.value == idOrName : ((1 + PARAMS.PAGE_SIZE*(getCurPage()-1)) <= pokemon.id && pokemon.id <= (PARAMS.PAGE_SIZE*getCurPage())))) {
+            createCard(pokemon, card.id);
             clearNotFound();
         }
+        else 
+            card.remove();
     }
     catch {
         callbackOnFail();
+        card.remove();
     }
 }
 
