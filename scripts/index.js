@@ -1,6 +1,6 @@
 function generateCards() {
     const curPage = getCurPage();
-    for (let i = 1 + 12*(curPage-1); i <= (12*curPage); i++)
+    for (let i = 1 + PARAMS.PAGE_SIZE*(curPage-1); i <= (PARAMS.PAGE_SIZE*curPage); i++)
     {
         if (i <= PARAMS.LAST_POKE)
             getPokemon(i);
@@ -15,8 +15,15 @@ function getCurPage() {
 
 function updatePage(page) {
     const prev = document.getElementById('prev-page');
-    if (page > 1) prev.style.display = "block";
-    else prev.style.display = "none";
+    const next = document.getElementById('next-page');
+    if (page > 1) 
+        prev.style.display = "block";
+    else 
+        prev.style.display = "none";
+    if (page < PARAMS.PAGE_COUNT()) 
+        next.style.display = "block";
+    else 
+        next.style.display = "none";
     document.querySelector('#pokemon-search-bar input').value = '';
     document.getElementById('page-count').textContent = page;
     clearPokemon();
@@ -65,5 +72,5 @@ searchBar.addEventListener('input', function() {
 
 let page = new URLSearchParams(document.location.search).get('page') ?? 1;
 if (page < 1) page = 1;
-else if (page > 113) page = 113;
+else if (page > PARAMS.PAGE_COUNT()) page = PARAMS.PAGE_COUNT();
 updatePage(page);

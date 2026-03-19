@@ -1,7 +1,15 @@
 const PARAMS = {
     LAST_POKE: 1025,
     FIRST_VARIANT: 10001,
-    LAST_VARIANT: 10325
+    LAST_VARIANT: 10325,
+    POKE_COUNT: () => {
+        return PARAMS.LAST_POKE+PARAMS.LAST_VARIANT-PARAMS.FIRST_VARIANT+1;
+    },
+    PAGE_SIZE: 12,
+    PAGE_COUNT: () => {
+        const count = PARAMS.POKE_COUNT();
+        return Math.floor(count/PARAMS.PAGE_SIZE)+(count%PARAMS.PAGE_SIZE==0?0:1);
+    },
 }
 
 function capitalize(input) {
@@ -178,3 +186,5 @@ async function getPokemon(idOrName, callbackOnFail=(() => {})) {
 
 if (!localStorage.getItem('favorites'))
     localStorage.setItem('favorites', '{}');
+
+console.log(PARAMS.PAGE_COUNT());
