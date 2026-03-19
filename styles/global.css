@@ -69,17 +69,19 @@ header a {
     margin-bottom: 1rem;
 }
 .fav-button {
-    height: 1.75rem;
-    width: 1.75rem;
+    height: 5vh;
+    width: 5vh;
     background-image: url('../public/fav-button.png');
+    background-repeat: no-repeat;
+    background-position: center;
     background-size: contain;
     margin-left: 2rem;
 }
 .fav-button:hover {
     transition: ease-in 0.2s all;
-    height: 2.25rem;
-    width: 2.25rem;
-    margin-top: -0.4rem; 
+    height: 6.5vh;
+    width: 6.5vh;
+    margin-top: -0.5rem; 
     margin-right: -0.35rem;
 }
 .card-loading {
