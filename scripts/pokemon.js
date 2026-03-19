@@ -1,3 +1,9 @@
+const PARAMS = {
+    LAST_POKE: 1025,
+    FIRST_VARIANT: 10001,
+    LAST_VARIANT: 10325
+}
+
 function capitalize(input) {
     if (input)
         return input.charAt(0).toUpperCase() + input.slice(1);
@@ -87,13 +93,10 @@ function createCard(pokemon)
     favButton.pokemonId = pokemon.id;
     favButton.checked = false;
     const fav = JSON.parse(localStorage.getItem('favorites'));
-    try {
-        if (fav[favButton.pokemonId]) {
-            favButton.checked = true;
-            favButton.style.backgroundImage = "url('./public/fav-button-filled.png')";
-        }
-    }
-    catch {}
+    if (fav[favButton.pokemonId]) {
+        favButton.checked = true;
+        favButton.style.backgroundImage = "url('./public/fav-button-filled.png')";
+    }       
     favButton.addEventListener('click', function() {
         if (!this.checked)
         {
@@ -143,7 +146,7 @@ function clearNotFound() {
 }
 
 function isValidId(num) {
-    return num > 0 && (num <= 1025 || num >= 10001 && num <= 10325);
+    return num > 0 && (num <= PARAMS.LAST_POKE || num >= PARAMS.FIRST_VARIANT && num <= PARAMS.LAST_VARIANT);
 }
 
 async function getPokemon(idOrName, callbackOnFail=(() => {})) {
@@ -168,7 +171,7 @@ async function getPokemon(idOrName, callbackOnFail=(() => {})) {
             clearNotFound();
         }
     }
-    catch (e) {
+    catch {
         callbackOnFail();
     }
 }

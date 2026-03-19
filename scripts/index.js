@@ -2,10 +2,10 @@ function generateCards() {
     const curPage = getCurPage();
     for (let i = 1 + 12*(curPage-1); i <= (12*curPage); i++)
     {
-        if (i <= 1025)
+        if (i <= PARAMS.LAST_POKE)
             getPokemon(i);
         else
-            getPokemon(i+8975);
+            getPokemon(i+(PARAMS.FIRST_VARIANT-PARAMS.LAST_POKE));
     }
 }
 
