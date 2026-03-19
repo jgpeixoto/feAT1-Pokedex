@@ -5,7 +5,7 @@ function generateCards() {
         if (i <= 1025)
             getPokemon(i);
         else
-            getPokemon(i+8976);
+            getPokemon(i+8975);
     }
 }
 
@@ -43,7 +43,7 @@ searchBar.addEventListener('input', function() {
     {
         generateCards();
     }
-    else if (!isNaN(this.value) && (Number(this.value) <= 1025 || (Number(this.value) >= 10001 && Number(this.value) <= 10325)))
+    else if (!isNaN(this.value) && isValidId(this.value))
     {
         getPokemon(Number(this.value));
     }
@@ -63,4 +63,7 @@ searchBar.addEventListener('input', function() {
     }
 });
 
-generateCards();
+let page = new URLSearchParams(document.location.search).get('page') ?? 1;
+if (page < 1) page = 1;
+else if (page > 113) page = 113;
+updatePage(page);

@@ -41,7 +41,9 @@ class Pokemon {
             this.typeList.push(capitalize(rawPokemon.types[i].type.name));
         }
         this.image = rawPokemon.sprites.other['official-artwork'].front_default ?? rawPokemon.sprites.front_default;
-        this.image_shiny = rawPokemon.sprites.other['official-artwork'].front_shiny ?? rawPokemon.sprites.front_shiny;
+        if (this.image == null) this.image = './public/missing-entry.png';
+        this.image_shiny = rawPokemon.sprites.other['official-artwork'].front_shiny ?? rawPokemon.sprites.front_shiny ?? './public/missing-entry.png';
+        if (this.image_shiny == null) this.image_shiny = './public/missing-entry.png';
     }
 }
 
@@ -140,8 +142,17 @@ function clearNotFound() {
     }
 }
 
+function isValidId(num) {
+    return num > 0 && (num <= 1025 || num >= 10001 && num <= 10325);
+}
+
 async function getPokemon(idOrName, callbackOnFail=(() => {})) {
     try {
+        let num = Number(idOrName);
+        if (!isNaN(num) && !isValidId(num)) {
+            callbackOnFail();
+            return;
+        }
         const cachedPoke = localStorage.getItem(idOrName);
         if (!cachedPoke) {
             let json = await (await fetch('https://pokeapi.co/api/v2/pokemon/'+idOrName)).json();
