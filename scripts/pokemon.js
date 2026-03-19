@@ -124,11 +124,14 @@ function createCard(pokemon)
     });
     favButton.classList.add('fav-button');
 
+    const link = document.createElement('a');
+    link.href = './about.html?id=' + pokemon.id;
     const text = document.createElement('h3');
     text.textContent = pokemon.id + " - " + pokemon.name;
     
     card.appendChild(image);
-    card.appendChild(text);
+    link.appendChild(text);
+    card.appendChild(link);
     flexbox.appendChild(shinySwitch);
     flexbox.appendChild(shinySwitchLabel);
     flexbox.appendChild(favButton);
