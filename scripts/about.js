@@ -11,10 +11,10 @@ function insertInformation(pokemon) {
     document.getElementById('pokemon-types').textContent = pokemon.typeList;
     const moves = pokemon.moveList.split(', ');
     const parsedMoves = [];
-    if (moves.length > 55) {
-        for (let i = 0; i < 55; i++)
+    if (moves.length > 50) {
+        for (let i = 0; i < 50; i++)
             parsedMoves.push(moves[i]);
-        parsedMoves.push('and ' + (moves.length - 55) + ' others...');
+        parsedMoves.push('and ' + (moves.length - 50) + ' others...');
         document.getElementById('pokemon-moves').textContent = parsedMoves.join(', ');
     }
     else

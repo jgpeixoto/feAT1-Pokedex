@@ -1,11 +1,11 @@
-function generateCards() {
+async function generateCards() {
     const curPage = getCurPage();
     for (let i = 1 + PARAMS.PAGE_SIZE*(curPage-1); i <= (PARAMS.PAGE_SIZE*curPage); i++)
     {
         if (i <= PARAMS.LAST_POKE)
-            getPokemon(i);
+            await getPokemon(i);
         else
-            getPokemon(i+(PARAMS.FIRST_VARIANT-PARAMS.LAST_POKE-1));
+            await getPokemon(i+(PARAMS.FIRST_VARIANT-PARAMS.LAST_POKE-1));
     }
 }
 
@@ -13,7 +13,7 @@ function getCurPage() {
     return Number(document.getElementById('page-count').textContent);
 }
 
-function updatePage(page) {
+async function updatePage(page) {
     const prev = document.getElementById('prev-page');
     const next = document.getElementById('next-page');
     if (page > 1) 
@@ -27,7 +27,11 @@ function updatePage(page) {
     document.getElementById('pokemon-search-textbar').value = '';
     document.getElementById('page-count').textContent = page;
     clearPokemon();
-    generateCards();
+    await generateCards();
+    const cont = document.getElementById('pokemon-card-container');
+    [...cont.children].sort((a, b) => a.pokemonId > b.pokemonId ? 1 : -1).forEach(function(node) {
+        cont.appendChild(node);
+    });    
 }
 
 function prevPage() {

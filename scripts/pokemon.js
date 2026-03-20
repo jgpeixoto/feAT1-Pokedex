@@ -156,8 +156,7 @@ function createCard(pokemon, cardId)
 function clearPokemon() {
     const container = document.getElementById('pokemon-card-container');
     for (let i = container.children.length-1; i >= 0; i--)
-        if (container.children.item(i).id !== 'first-load')
-            container.children.item(i).remove();
+        container.children.item(i).remove();
 }
 
 function clearNotFound() {
@@ -177,6 +176,7 @@ function isValidId(num) {
 async function getPokemon(idOrName, callbackOnFail=(() => {})) {
     const card = document.createElement('div');
     card.id = 'card-' + idOrName;
+    card.pokemonId = idOrName;
     card.classList.add('card-loading');
     document.getElementById('pokemon-card-container').appendChild(card);
     try {
@@ -198,19 +198,16 @@ async function getPokemon(idOrName, callbackOnFail=(() => {})) {
         else {
             pokemon = JSON.parse(cachedPoke);    
         }
-        let searchBar = document.getElementById('pokemon-search-textbar');
-        if (!searchBar || (searchBar.value ? searchBar.value == idOrName : ((1 + PARAMS.PAGE_SIZE*(getCurPage()-1)) <= pokemon.id && pokemon.id <= (PARAMS.PAGE_SIZE*getCurPage())))) {
-            createCard(pokemon, card.id);
-            clearNotFound();
-        }
-        else 
-            card.remove();
+        createCard(pokemon, card.id);
+        clearNotFound();
+
     }
     catch {
         card.remove();
         callbackOnFail();
     }
 }
+
 
 if (!localStorage.getItem('favorites'))
     localStorage.setItem('favorites', '{}');
