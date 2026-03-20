@@ -75,6 +75,7 @@ function createCard(pokemon, cardId)
     const container = document.getElementById('pokemon-card-container');
     const card = document.getElementById(cardId);
     card.pokemon = pokemon;
+    card.pokemonId = pokemon.id;
     card.classList.remove('card-loading');
     card.classList.add('pokemon-card');
     
