@@ -45,3 +45,6 @@ A simple pokedex for viewing stats, moves and other information from most pokemo
 ## Screenshots
 ![main screen](https://github.com/jgpeixoto/feat1-pokedex/blob/main/.screenshots/3.png?raw=true)
 ![about screen](https://github.com/jgpeixoto/feat1-pokedex/blob/main/.screenshots/4.png?raw=true)
+
+## Final Considerations
+Likely the two greatest challenges I faced were figuring out how to store/cache information within LocalStorage and get the custom font to work properly. For the first one, some parsing and stringifying had to be done in JSON to store any significant amount of information; and for the latter simply converting the custom font from .ttf (truetype) to .woff did the trick.
