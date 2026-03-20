@@ -3,7 +3,8 @@
     margin-top: 2rem;
     margin-left: 0.5rem;
     margin-right: 0.5rem;
-    font-size: 14pt;
+    font-size: 20pt;
+    font-family: "Pokemon Fire Red";
 }
 #pokemon-sprite {
     height: 200%;
@@ -14,6 +15,11 @@
     background-color: #202028;
     border-radius: 2rem;
 }
+#pokemon-name {
+    font-size: 40pt;
+    text-shadow: #555 0.15rem 0.15rem;
+    margin-bottom: 0;
+}
 #info-grid {
     display: grid;
     grid-template-columns: 15vw 15vw;
@@ -21,6 +27,7 @@
 }
 #info-grid p {
     font-weight: bold;
+    font-family: "Pokemon Fire Red";
     margin: 0;
 }
 #info-grid p span {
@@ -28,8 +35,12 @@
 }
 #pokemon-movelist {
     font-weight: bold;
-    margin-top: 0;
+    margin-top: 2rem;
+    margin-bottom: 0;
 }
 #pokemon-movelist span {
     font-weight: normal;
+}
+#favorite-button {
+    margin-top: 0.35rem;
 }

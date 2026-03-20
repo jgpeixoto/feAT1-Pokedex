@@ -9,7 +9,7 @@ function generateCardsFavs() {
     } else 
         for (let i = 0; i < favList.length; i++)
             getPokemon(favList[i]);
-    document.getElementById('first-load').remove();
 }
 
 generateCardsFavs();
+document.getElementById('first-load').remove();

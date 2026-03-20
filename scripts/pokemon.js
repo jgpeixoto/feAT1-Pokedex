@@ -101,6 +101,7 @@ function createCard(pokemon, cardId)
     
     const shinySwitchLabel = document.createElement('label');
     shinySwitchLabel.for = 'shinySwitch' + pokemon.id;
+    shinySwitchLabel.classList.add('shiny-switch');
     shinySwitchLabel.textContent = 'Shiny';
     
     const flexbox = document.createElement('div');
@@ -137,6 +138,7 @@ function createCard(pokemon, cardId)
 
     const link = document.createElement('a');
     link.href = './about.html?id=' + pokemon.id;
+    link.classList.add('pokemon-card-name');
     const text = document.createElement('h3');
     text.textContent = pokemon.id + " - " + pokemon.name;
     
