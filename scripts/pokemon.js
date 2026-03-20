@@ -174,11 +174,12 @@ function isValidId(num) {
 }
 
 async function getPokemon(idOrName, callbackOnFail=(() => {})) {
+    const cont = document.getElementById('pokemon-card-container');
     const card = document.createElement('div');
     card.id = 'card-' + idOrName;
     card.pokemonId = idOrName;
     card.classList.add('card-loading');
-    document.getElementById('pokemon-card-container').appendChild(card);
+    cont.appendChild(card);
     try {
         let num = Number(idOrName);
         
@@ -200,7 +201,9 @@ async function getPokemon(idOrName, callbackOnFail=(() => {})) {
         }
         createCard(pokemon, card.id);
         clearNotFound();
-
+        [...cont.children].sort((a, b) => a.pokemonId > b.pokemonId ? 1 : -1).forEach(function(node) {
+            cont.appendChild(node);
+        });
     }
     catch {
         card.remove();
