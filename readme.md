@@ -3,7 +3,7 @@
 
 A simple pokedex for viewing stats, moves and other information from most pokemon (generations I through IX).
 
-> This repository was made as a learning experience within the internship
+> This repository was made as a learning experience within the learning path
 > "Full-Stack Journey: React.js" at Compass UOL,
 > by the trainee **João Gabriel de Araújo Peixoto**.
 ## Features
