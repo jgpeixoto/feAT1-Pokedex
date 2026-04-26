@@ -3,9 +3,9 @@
 
 A simple pokedex for viewing stats, moves and other information from most pokemon (generations I through IX).
 
-> This repository was as a learning experience within the internship
-> "Back-end Journey (Node.js) - AWS Cloud Context" at Compass UOL,
-> by the intern **João Gabriel de Araújo Peixoto**.
+> This repository was made as a learning experience within the internship
+> "Full-Stack Journey: React.js" at Compass UOL,
+> by the trainee **João Gabriel de Araújo Peixoto**.
 ## Features
 
 - Favorite system
